@@ -164,6 +164,7 @@ namespace MCForge
             		all.Add(new CmdMynotes());
 			all.Add(new CmdNewLvl());
 			all.Add(new CmdNews());
+            all.Add(new CmdNick());
             		all.Add(new CmdNotes());
 			//all.Add(new CmdNyan());
 			all.Add(new CmdOHide());

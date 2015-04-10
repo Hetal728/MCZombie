@@ -70,6 +70,7 @@ namespace MCForge
         public bool disconnected = false;
         public string time;
         public string name;
+        public string DisplayName;
         public string realName;
         public bool identified = false;
         public int warn = 0;
@@ -518,7 +519,9 @@ namespace MCForge
             catch (Exception e) { Kick("Login failed!"); Server.ErrorLog(e); }
         }
         public void save()
-        {/*
+        {
+            FlatFile.Save(this);
+            /*
             if (this.group.Permission > LevelPermission.Guest && this.totalLogins <= 1 && this.roundssurvived < 3)
             {
                 Server.s.Log("Prevented saving data for " + this.name);
@@ -710,6 +713,7 @@ namespace MCForge
                 byte version = message[0];
                 name = enc.GetString(message, 1, 64).Trim();
                 truename = name;
+                DisplayName = name;
                 if (name.Split('@').Length > 1)
                 {
                     name = name.Split('@')[0];
@@ -946,7 +950,7 @@ namespace MCForge
                 Server.ErrorLog(e);
                 Player.GlobalMessage("An error occurred: " + e.Message);
             }
-
+            FlatFile.Load(this);
             DataTable playerDb = Database.fillData("SELECT * FROM Players WHERE Name='" + name + "'");
 
             if (playerDb.Rows.Count == 0)
@@ -1073,7 +1077,7 @@ namespace MCForge
                             if (p.infected)
                                 SendSpawn(p.id, c.red + Server.ZombieName, p.pos[0], p.pos[1], p.pos[2], p.rot[0], p.rot[1]);
                             else if (!p.infected && !p.referee)
-                                SendSpawn(p.id, p.color + p.name, p.pos[0], p.pos[1], p.pos[2], p.rot[0], p.rot[1]);
+                                SendSpawn(p.id, p.color + p.DisplayName, p.pos[0], p.pos[1], p.pos[2], p.rot[0], p.rot[1]);
                         }
                         else
                             SendSpawn(p.id, p.color + p.name, p.pos[0], p.pos[1], p.pos[2], p.rot[0], p.rot[1]);
@@ -3410,7 +3414,11 @@ changed |= 4;*/
                     referee = c.red+ "["+Server.zombieprefix+"] ";
                 else
                     referee = c.lime + "["+Server.humanprefix+"] ";
-                message = referee + from.color + from.voicestring + from.color + from.prefix + from.name + ": &f" + message;
+                if(from.DisplayName == "")
+                {
+                    from.DisplayName = from.name;
+                }
+                message = referee + from.color + from.voicestring + from.color + from.prefix + from.DisplayName + ": &f" + message;
             }
             players.ForEach(delegate(Player p)
             {

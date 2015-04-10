@@ -108,6 +108,7 @@
     <Compile Include="Commands\CmdLottery.cs" />
     <Compile Include="Commands\CmdMynotes.cs" />
     <Compile Include="Commands\CmdMyreferences.cs" />
+    <Compile Include="Commands\CmdNick.cs" />
     <Compile Include="Commands\CmdNotes.cs" />
     <Compile Include="Commands\CmdPunch.cs" />
     <Compile Include="Commands\CmdReference.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="Heartbeat\ClassiCubeBeat.cs" />
     <Compile Include="Levels\Texture_Settings.cs" />
     <Compile Include="MCForgeAccount.cs" />
+    <Compile Include="Player\FlatFile.cs" />
     <Compile Include="Player\MojangAccount.cs" />
     <Compile Include="Player\Packet.cs" />
     <Compile Include="Plugins\GroupEvents\OnGroupLoadedEvent.cs" />
